@@ -1,8 +1,7 @@
 const express = require("express")
 const dotenv = require("dotenv")
 const { accessControl, defaultMiddleware } = require("./middleware")
-const question = require("./routers/question")
-const auth = require("./routers/auth")
+const routers = require("./routers/index")
 const app = express()
 
 // Environment Variables
@@ -15,8 +14,8 @@ app.get("/", (req, res, next) => {
     res.send("<h1>HomePage</h1>")
 })
 
-app.use("/api/register",question)
-app.use("/api/auth",auth)
+
+app.use("/api",routers)
 
 
 
