@@ -1,6 +1,8 @@
 const express = require("express")
 const dotenv = require("dotenv")
 const { accessControl, defaultMiddleware } = require("./middleware")
+const question = require("./routers/question")
+const auth = require("./routers/auth")
 const app = express()
 
 // Environment Variables
@@ -12,18 +14,10 @@ const PORT = 502 || process.env.PORT
 app.get("/", (req, res, next) => {
     res.send("<h1>HomePage</h1>")
 })
-app.get("/api/questions", (req, res, next) => {
-    res.send("Questions")
-})
-app.get("/api/questions/delete", (req, res, next) => {
-    res.send("Questions Delete")
-})
-app.get("/api/auth", (req, res, next) => {
-    res.send("Auth")
-})
-app.get("/api/auth", (req, res, next) => {
-    res.send("Auth Register")
-})
+
+app.use("/api/register",question)
+app.use("/api/auth",auth)
+
 
 
 
