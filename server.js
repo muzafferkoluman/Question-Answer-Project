@@ -1,6 +1,7 @@
 const express = require("express")
 const dotenv = require("dotenv")
 const { accessControl, defaultMiddleware } = require("./middleware")
+const connectDatabase = require("./helpers/databases/connectDatabase")
 const routers = require("./routers/index")
 const app = express()
 
@@ -8,6 +9,10 @@ const app = express()
 dotenv.config({
     path: "./config/env/config.env"
 })
+
+// MongoDB
+connectDatabase()
+
 const PORT = 502 || process.env.PORT
 
 app.get("/", (req, res, next) => {
