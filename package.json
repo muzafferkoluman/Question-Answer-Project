@@ -1,5 +1,5 @@
 {
-  "name": "expressJs",
+  "name": "expressjs",
   "version": "1.0.0",
   "description": "ExpressJs, Rest API and MongoDB",
   "main": "serves.js",
