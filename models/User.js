@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
-
+const bcrypt = require("bcryptjs");
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     name: {
         type: String,
         required: [true, "Please provide a name"]
@@ -52,11 +52,19 @@ const userSchema = new Schema({
     }
 })
 
-userSchema.pre("save",function(next){
-    console.log("pre hoks")
-    console.log(this)
-    next()
+UserSchema.pre("save", function (next) {
+    if (!this.isModified("password")) {
+        next();
+    }
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) next(err);
+        bcrypt.hash(this.password, salt, (err, hash) => {
+            if (err) next(err);
+            this.password = hash;
+            next()
+        })
+    })
 })
 
 
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", UserSchema)

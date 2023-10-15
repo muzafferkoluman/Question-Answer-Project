@@ -4,7 +4,6 @@ const asycErrorWrapper = require("express-async-handler")
 
 const register = asycErrorWrapper(async (req, res, next) => {
     // POST DATA
-    console.log(req.body)
 
     const {name,email,password,role} = req.body
 
