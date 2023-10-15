@@ -7,15 +7,16 @@ const customErrorHandler = ((err, req, res, next) => {
         customError = new CustomError("Unexpect Error", 400)
     }
     if (err.name === "ValidationError") {
-        customError = new CustomError(err.message,400)
+        customError = new CustomError(err.message, 400)
     }
-    console.log(customErr.message, customErr.status)
 
-    res.status(customErr.message || 500).json({
-            success: false,
-            message: customErr.message
 
-        })
+
+    res.status(customErr.status || 500).json({
+        success: false,
+        message: customErr.message
+
+    })
 
 })
 

@@ -9,7 +9,7 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        requred: true,
+        requred: [true, "Please try provide email"],
         unique: [true, "Please try different email"],
         //        match:[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w
 
@@ -50,6 +50,12 @@ const userSchema = new Schema({
         default: false
 
     }
+})
+
+userSchema.pre("save",function(next){
+    console.log("pre hoks")
+    console.log(this)
+    next()
 })
 
 

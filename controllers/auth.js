@@ -27,7 +27,7 @@ const register = asycErrorWrapper(async (req, res, next) => {
 
 
 const errorTest = (req, res, next) => {
-    return next(new TypeError("TypeError"))
+    return next(new TypeError("TypeError",400))
 }
 
 
