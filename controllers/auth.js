@@ -1,6 +1,7 @@
 const User = require("../models/User")
 const CustomError = require("../helpers/error/CustomError")
 const asycErrorWrapper = require("express-async-handler")
+const sendJwtToClient = require("../helpers/authorization/sendJwtToClient")
 
 const register = asycErrorWrapper(async (req, res, next) => {
     // POST DATA
@@ -16,14 +17,7 @@ const register = asycErrorWrapper(async (req, res, next) => {
         }
     )
 
-    const token = user.generateJWTFormUser()
-    console.log(token)
-
-
-    res.status(200).json({
-            success: true,
-            data: user
-        })
+    sendJwtToClient(user,res)
 
 })
 
