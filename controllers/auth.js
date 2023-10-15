@@ -8,31 +8,29 @@ const register = async (req,res,next)=>{
 
     // async, await
 
-    const user = await User.create(
-        {
-            name:name,
-            password:password,
-            email:email,
-            role:"admin"
-        }
-    )
-
-
-
-    res
-    .status(404)
-    .json({
-        success:true,
-        data : user
-
-    })
-
+    try {
+        const user = await User.create(
+            {
+                name:name,
+                password:password,
+                email:email,
+                role:"admin"
+            }
+        )
+        res
+        .status(404)
+        .json({
+            success:true,
+            data : user
+    
+        })
+    } catch (error) {
+        return next(error)
+    }
 }
 
 const errorTest = (req,res,next) =>{
     throw new Error("Error Test");
 }
-
-
 
 module.exports = { register, errorTest}
