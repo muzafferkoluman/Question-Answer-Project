@@ -16,6 +16,9 @@ const register = asycErrorWrapper(async (req, res, next) => {
         }
     )
 
+    const token = user.generateJWTFormUser()
+    console.log(token)
+
 
     res.status(200).json({
             success: true,

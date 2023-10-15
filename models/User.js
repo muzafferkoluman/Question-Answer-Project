@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs");
 const { Schema } = mongoose;
+const jwt = require("jsonwebtoken")
 
 const UserSchema = new Schema({
     name: {
@@ -10,7 +11,7 @@ const UserSchema = new Schema({
     email: {
         type: String,
         requred: [true, "Please try provide email"],
-        unique: [true, "Please try different email"],
+        unique: true,
         //        match:[/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w
 
     },
@@ -65,6 +66,20 @@ UserSchema.pre("save", function (next) {
         })
     })
 })
+
+UserSchema.methods.generateJWTFormUser = function () {
+    const { JWT_SECRET_KEY, JWT_EXPIRE } = process.env
+
+    const payload = {
+        id: this._id,
+        name: this.name
+    }
+    const token = jwt.sign(payload, JWT_SECRET_KEY, {
+        expiresIn: JWT_EXPIRE
+    })
+    return token
+
+}
 
 
 module.exports = mongoose.model("User", UserSchema)
