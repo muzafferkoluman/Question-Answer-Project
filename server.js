@@ -5,6 +5,9 @@ const customErrorHandler = require("./middleware/errors/customErrorHandler")
 const routers = require("./routers/index")
 const app = express()
 
+// Express Middleware
+app.use(express.json())
+
 // Environment Variables
 dotenv.config({
     path: "./config/env/config.env"
@@ -29,19 +32,4 @@ app.listen(PORT, () => {
     console.log(`Server Started PORT: ${PORT}  ${process.env.NODE_ENV}`)
 })
 
-
-
-// const array = [
-//     { id: "1", name: "muzaffer", departmen: "IT", salary: 5000 },
-//     { id: "2", name: "koluman", departmen: "IBsT", salary: 2000 }
-// ]
-
-// app.get("/users",accessControl,defaultMiddleware, (req, res, next) => {
-//     res.json(array)
-// })
-
-// app.post("/users",(req,res,next)=>{
-//     console.log(parseInt(req.body))
-//     res.send("<h1>Middleware Post</h1>")
-// })
 
