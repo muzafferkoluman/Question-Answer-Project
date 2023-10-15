@@ -29,4 +29,10 @@ const register = async (req,res,next)=>{
 
 }
 
-module.exports = { register}
+const errorTest = (req,res,next) =>{
+    throw new Error("Error Test");
+}
+
+
+
+module.exports = { register, errorTest}

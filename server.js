@@ -1,7 +1,7 @@
 const express = require("express")
 const dotenv = require("dotenv")
-const { accessControl, defaultMiddleware } = require("./middleware")
 const connectDatabase = require("./helpers/databases/connectDatabase")
+const customErrorHandler = require("./middleware/errors/customErrorHandler")
 const routers = require("./routers/index")
 const app = express()
 
@@ -22,7 +22,7 @@ app.get("/", (req, res, next) => {
 
 app.use("/api",routers)
 
-
+app.use(customErrorHandler)
 
 
 app.listen(PORT, () => {
